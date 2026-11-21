@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>Sentenceries | @wwording</title>
+
+<!-- Commercial-use-friendly fonts: SIL Open Font License -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --black:#080808;
+ --dark:#111;
+ --paper:#ded4c3;
+ --muted:#9b9184;
+ --wine:#6c3037;
+ --wine2:#a06c6b;
+ --gold:#ad9875;
+ --line:rgba(222,212,195,.15);
+ --serif:'Cormorant Garamond',serif;
+ --sans:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+ background:var(--black);color:var(--paper);
+ font-family:var(--sans);font-weight:300;line-height:1.8;
+ overflow-x:hidden;
+}
+body:after{
+ content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+ opacity:.045;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+::selection{background:var(--wine);color:white}
+
+/* =========================
+   CINEMATIC INTRO
+========================= */
+
+#intro{
+ position:fixed;inset:0;z-index:10000;
+ background:#050505;transition:opacity 1.5s,visibility 1.5s;
+ overflow:hidden;
+}
+#intro.hide{opacity:0;visibility:hidden}
+.scene{
+ position:absolute;inset:0;overflow:hidden;
+ display:flex;align-items:center;justify-content:center;
+ background:
+ radial-gradient(ellipse at 45% 40%,#292625 0%,#161514 43%,#050505 100%);
+ isolation:isolate;
+}
+.grain{
+ position:absolute;inset:-50%;z-index:12;pointer-events:none;opacity:.17;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 250 250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ animation:grain .4s steps(2) infinite;
+}
+@keyframes grain{
+ 0%{transform:translate(0,0)}
+ 25%{transform:translate(-2%,1%)}
+ 50%{transform:translate(1%,-2%)}
+ 75%{transform:translate(2%,1%)}
+ 100%{transform:translate(-1%,-1%)}
+}
+.vignette{
+ position:absolute;inset:0;z-index:11;
+ background:
+ linear-gradient(90deg,rgba(0,0,0,.6),transparent 35%,transparent 70%,rgba(0,0,0,.5)),
+ radial-gradient(ellipse,transparent 15%,rgba(0,0,0,.75) 100%);
+}
+.ambient{
+ position:absolute;width:70vw;height:70vw;max-width:850px;max-height:850px;
+ border-radius:50%;background:radial-gradient(circle,rgba(130,90,80,.15),transparent 70%);
+ filter:blur(40px);animation:ambient 8s ease-in-out infinite alternate;
+}
+@keyframes ambient{
+ from{transform:translate(-5%,-4%) scale(.8)}
+ to{transform:translate(5%,4%) scale(1.2)}
+}
+
+/* Film strips */
+
+.film{
+ position:absolute;z-index:3;width:90px;height:130%;top:-15%;
+ border-left:1px solid rgba(200,190,170,.25);
+ border-right:1px solid rgba(200,190,170,.25);
+ background:rgba(0,0,0,.35);opacity:.55;
+}
+.film.left{left:4%;transform:rotate(-9deg)}
+.film.right{right:4%;transform:rotate(10deg)}
+.film:before,.film:after{
+ content:"";position:absolute;left:0;right:0;height:100%;
+ background-image:repeating-linear-gradient(
+  to bottom,transparent 0px,transparent 23px,
+  rgba(0,0,0,.9) 23px,rgba(0,0,0,.9) 38px,
+  transparent 38px,transparent 65px
+ );
+}
+.film-text{
+ position:absolute;inset:80px 12px;
+ border:1px solid rgba(210,200,180,.2);
+ display:flex;flex-direction:column;justify-content:space-around;
+ align-items:center;color:#aaa;font-family:var(--serif);
+ letter-spacing:3px;font-size:14px;
+}
+.film-text span{transform:rotate(-90deg)}
+
+/* Stars */
+
+.star{position:absolute;color:#c3b7a6;z-index:4;opacity:.5;animation:star 5s infinite ease-in-out}
+.s1{top:8%;left:27%;font-size:22px}
+.s2{top:18%;right:25%;font-size:28px;animation-delay:1s}
+.s3{bottom:20%;left:16%;font-size:18px;animation-delay:2s}
+.s4{bottom:18%;right:18%;font-size:25px;animation-delay:1.5s}
+.s5{top:42%;left:8%;font-size:15px;animation-delay:.5s}
+.s6{top:70%;right:10%;font-size:30px;animation-delay:2.5s}
+@keyframes star{
+ 0%,100%{transform:translateY(0);opacity:.3}
+ 50%{transform:translateY(-10px);opacity:.8}
+}
+
+/* Decorative typography */
+
+.fragment{
+ position:absolute;z-index:4;color:#c5b9a8;opacity:.45;
+ font-family:var(--serif);text-shadow:0 0 10px black;
+}
+.fr1{top:25%;left:13%;font-size:20px;line-height:1.4;letter-spacing:8px}
+.fr2{top:20%;right:13%;padding:4px 14px;background:#080808;transform:rotate(-8deg);font-size:12px;letter-spacing:3px}
+.fr3{bottom:20%;right:12%;padding:4px 14px;background:#080808;transform:rotate(6deg);font-size:12px;letter-spacing:3px}
+.fr4{bottom:12%;left:10%;font-size:9px;letter-spacing:5px;transform:rotate(-7deg)}
+.fr5{top:45%;right:30%;font-size:30px;transform:rotate(10deg)}
+
+/* Monogram */
+
+.monogram{
+ position:absolute;z-index:5;width:min(36vw,390px);min-width:220px;
+ left:17%;top:50%;transform:translateY(-50%) rotate(-8deg);
+ color:#c1b4a3;opacity:.35;filter:drop-shadow(0 0 20px black);
+ animation:monogram 3s forwards;
+}
+.monogram svg{width:100%}
+@keyframes monogram{
+ from{opacity:0;transform:translateY(-50%) rotate(-15deg) scale(.8)}
+ to{opacity:.35;transform:translateY(-50%) rotate(-8deg) scale(1)}
+}
+
+/* Feather */
+
+.quill{
+ position:absolute;z-index:5;right:13%;top:5%;width:min(30vw,380px);
+ min-width:180px;color:#c0b4a5;opacity:.4;
+ transform:rotate(12deg);filter:drop-shadow(0 25px 25px black);
+ animation:quill 7s infinite alternate ease-in-out;
+}
+.quill svg{width:100%}
+@keyframes quill{
+ from{transform:rotate(10deg) translateY(0)}
+ to{transform:rotate(14deg) translateY(-12px)}
+}
+
+/* Bottle */
+
+.bottle{
+ position:absolute;z-index:5;right:28%;bottom:4%;
+ width:min(15vw,170px);min-width:95px;color:#c0b4a5;opacity:.35;
+ filter:drop-shadow(0 20px 20px black);transform:rotate(-4deg);
+}
+.bottle svg{width:100%}
+
+/* Central text */
+
+.intro-content{
+ position:relative;z-index:20;width:90%;max-width:1000px;text-align:center;
+ animation:contentReveal 2.5s ease forwards;
+}
+@keyframes contentReveal{
+ from{opacity:0;transform:translateY(25px);filter:blur(8px)}
+ to{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+.topline{
+ color:#b6a58e;font-size:10px;letter-spacing:7px;margin-bottom:30px;
+}
+.topline span{color:#8b645b;margin:0 12px}
+.intro-title{
+ font-family:var(--serif);font-weight:400;
+ font-size:clamp(50px,10vw,140px);line-height:.95;
+ letter-spacing:clamp(2px,1.5vw,16px);
+ color:#e3d8c7;white-space:nowrap;
+ text-shadow:0 3px 1px black,0 0 45px rgba(180,160,130,.08);
+}
+.intro-divider{
+ display:flex;align-items:center;justify-content:center;gap:18px;
+ color:#9b7469;font-size:25px;margin:32px auto 20px;
+}
+.intro-divider span{
+ width:90px;height:1px;background:linear-gradient(90deg,transparent,#b6a58e);
+}
+.intro-divider span:last-child{transform:rotate(180deg)}
+.intro-sub{font-size:10px;letter-spacing:5px;color:#9c9285;margin-bottom:35px}
+.enter-btn{
+ display:inline-flex;align-items:center;gap:25px;
+ padding:16px 35px;border:1px solid rgba(220,200,180,.4);
+ background:rgba(8,8,8,.4);color:#d7cbbb;
+ letter-spacing:4px;font-size:10px;overflow:hidden;position:relative;
+ transition:.4s;
+}
+.enter-btn:before{
+ content:"";position:absolute;inset:0;background:#d7cbbb;
+ transform:translateX(-101%);transition:.5s;
+}
+.enter-btn:hover:before{transform:translateX(0)}
+.enter-btn span{position:relative;z-index:2;transition:.5s}
+.enter-btn:hover span{color:#080808}
+.enter-arrow{font-size:16px}
+.intro-bottom{margin-top:45px;color:rgba(190,175,155,.5);font-size:8px;letter-spacing:5px}
+
+/* Corner labels */
+
+.corner{
+ position:absolute;z-index:20;color:rgba(190,175,155,.5);
+ font-size:8px;letter-spacing:3px;
+}
+.ct{top:30px;left:35px}
+.cr{top:30px;right:35px}
+.cb{bottom:30px;left:35px}
+.cbr{bottom:30px;right:35px}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+header{
+ position:sticky;top:0;z-index:100;
+ background:rgba(8,8,8,.92);backdrop-filter:blur(15px);
+ border-bottom:1px solid var(--line);
+}
+.nav{
+ max-width:1400px;margin:auto;padding:15px 5%;
+ display:flex;justify-content:space-between;align-items:center;
+}
+.logo{font-family:var(--serif);font-size:29px;letter-spacing:1px}
+.logo span{color:var(--wine2)}
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{
+ font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+ transition:.3s;
+}
+.nav-links a:hover{color:var(--paper)}
+.menu-btn{display:none;background:none;border:none;font-size:22px}
+
+main{max-width:1400px;margin:auto;padding:0 5%}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+ min-height:700px;padding:90px 0;
+ display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center;
+}
+.eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--wine2)}
+.hero h1{
+ font-family:var(--serif);font-size:clamp(60px,8vw,115px);
+ font-weight:400;line-height:.95;margin:25px 0;
+}
+.hero h1 i{color:var(--wine2)}
+.hero-text{color:var(--muted);font-size:13px;max-width:480px}
+.hero-buttons{display:flex;gap:15px;flex-wrap:wrap;margin-top:32px}
+.btn{
+ display:inline-flex;align-items:center;justify-content:center;
+ padding:13px 25px;border:1px solid var(--line);
+ text-transform:uppercase;font-size:10px;letter-spacing:2px;transition:.4s;
+}
+.btn:hover{border-color:var(--wine2);color:var(--wine2)}
+.btn-primary{background:var(--paper);color:#080808;border-color:var(--paper)}
+.btn-primary:hover{background:var(--wine2);color:white;border-color:var(--wine2)}
+
+.hero-visual{
+ min-height:440px;position:relative;display:flex;justify-content:center;align-items:center;
+}
+.hero-frame{
+ width:min(390px,85vw);height:min(390px,85vw);
+ border:1px solid rgba(173,152,117,.35);border-radius:50%;
+ display:flex;align-items:center;justify-content:center;position:relative;
+}
+.hero-frame:before,.hero-frame:after{
+ content:"";position:absolute;border:1px solid var(--line);border-radius:50%;
+}
+.hero-frame:before{inset:20px}
+.hero-frame:after{inset:45px;border-color:rgba(108,48,55,.5)}
+.hero-mark{
+ font-family:var(--serif);font-size:100px;font-style:italic;color:var(--wine2);
+ transform:rotate(-15deg);z-index:2;
+}
+.hero-caption{
+ position:absolute;bottom:15px;right:-10px;font-size:9px;letter-spacing:3px;color:var(--muted);
+}
+.hero-symbol{position:absolute;top:35px;left:30px;color:var(--gold);font-size:22px}
+.hero-small{position:absolute;bottom:55px;left:20px;font-family:var(--serif);font-size:30px;color:var(--muted);font-style:italic}
+
+/* =========================
+   TICKER
+========================= */
+
+.ticker{
+ border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+ overflow:hidden;white-space:nowrap;padding:17px 0;
+ font-family:var(--serif);font-size:22px;font-style:italic;color:var(--muted);
+}
+.ticker-track{display:inline-block;animation:ticker 35s linear infinite}
+@keyframes ticker{to{transform:translateX(-50%)}}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section{padding:100px 0;border-bottom:1px solid var(--line)}
+.section-head{
+ display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:45px;
+}
+.section-head h2{font-family:var(--serif);font-weight:400;font-size:55px;line-height:1}
+.section-head h2 i{color:var(--wine2)}
+.section-head p{color:var(--muted);font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.section-no{color:var(--wine2);font-family:var(--serif);font-size:23px}
+
+/* =========================
+   SERVICE CARDS
+========================= */
+
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+ padding:30px;border:1px solid var(--line);
+ background:linear-gradient(150deg,#151312,#0c0c0c);
+ position:relative;transition:.4s;
+}
+.card:hover{transform:translateY(-5px);border-color:rgba(160,108,107,.5)}
+.card-no{font-family:var(--serif);font-size:25px;color:var(--wine2)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:34px;margin:10px 0}
+.card p{font-size:12px;color:var(--muted)}
+.card-link{display:inline-block;margin-top:20px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+
+/* =========================
+   PRICE LIST
+========================= */
+
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.price-box{
+ padding:35px;border:1px solid var(--line);
+ background:linear-gradient(160deg,#151312,#0c0c0c);
+}
+.price-sub{color:var(--wine2);font-size:10px;letter-spacing:3px;text-transform:uppercase}
+.price-box h3{font-family:var(--serif);font-size:38px;font-weight:400;margin-bottom:10px}
+.price-item{
+ display:flex;justify-content:space-between;align-items:flex-start;gap:15px;
+ padding:14px 0;border-bottom:1px solid var(--line);font-size:12px;
+}
+.price-item:last-child{border-bottom:0}
+.price-item span:last-child{text-align:right;color:var(--gold)}
+.price-note{font-size:11px;color:var(--muted);margin-top:20px}
+
+/* =========================
+   REGULATIONS
+========================= */
+
+.accordion{border-top:1px solid var(--line)}
+.accordion-item{border-bottom:1px solid var(--line)}
+.acc-btn{
+ width:100%;display:flex;justify-content:space-between;align-items:center;
+ background:none;border:none;text-align:left;padding:22px 0;
+ font-family:var(--serif);font-size:30px;font-weight:400;
+}
+.acc-icon{font-family:var(--sans);font-size:18px;color:var(--wine2)}
+.reg-index{font-size:22px;color:var(--wine2);margin-right:12px}
+.acc-content{
+ display:none;padding:0 0 28px;color:var(--muted);font-size:12px;max-width:950px;
+}
+.acc-content.open{display:block;animation:fade .4s}
+.acc-content p{margin:12px 0}
+.acc-content strong{color:var(--paper)}
+.acc-content ul{padding-left:20px}
+.acc-content li{margin:8px 0}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* =========================
+   ORDER FORMS
+========================= */
+
+.forms-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-card{
+ padding:30px;border:1px solid var(--line);
+ background:linear-gradient(150deg,#151312,#0c0c0c);
+}
+.form-card h3{font-family:var(--serif);font-size:34px;font-weight:400}
+.form-card .desc{font-size:11px;color:var(--muted);margin:5px 0 25px}
+.form-text{
+ background:#090909;border:1px solid var(--line);padding:20px;
+ white-space:pre-wrap;word-break:break-word;
+ font-size:12px;line-height:2;color:#c5b9a8;
+}
+.copy-btn{
+ padding:13px 22px;margin-top:18px;border:none;
+ background:var(--paper);color:#080808;
+ font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:.3s;
+}
+.copy-btn:hover{background:var(--wine2);color:white}
+.copy-btn.copied{background:#465b49;color:white}
+
+/* =========================
+   FEATURE BLOCK
+========================= */
+
+.feature-block{
+ border:1px solid var(--line);padding:40px;
+ background:radial-gradient(ellipse at top right,rgba(108,48,55,.18),transparent 65%),#111;
+}
+.feature-block h3{font-family:var(--serif);font-size:45px;font-weight:400}
+.feature-block p{color:var(--muted);font-size:12px;max-width:700px;margin:15px 0}
+.feature-block .btn{margin-top:20px}
+
+/* =========================
+   WORDING CLASS
+========================= */
+
+.class-card{
+ border:1px solid rgba(160,108,107,.3);
+ background:radial-gradient(ellipse at top right,rgba(108,48,55,.2),transparent 60%),#101010;
+ padding:55px;position:relative;overflow:hidden;
+}
+.class-card:after{
+ content:"✦";position:absolute;right:40px;top:40px;
+ font-size:100px;color:rgba(173,152,117,.12);
+}
+.class-card h3{font-family:var(--serif);font-size:65px;font-weight:400;line-height:1}
+.class-card p{color:var(--muted);max-width:700px;font-size:13px;margin:20px 0}
+.class-price{font-family:var(--serif);font-size:45px;color:var(--gold)}
+.class-card .btn{margin-top:20px}
+
+/* =========================
+   TESTIMONIALS
+========================= */
+
+.testimonial{
+ border:1px solid var(--line);padding:45px;text-align:center;
+ background:linear-gradient(180deg,#151312,#0a0a0a);
+}
+.testimonial .quote{font-family:var(--serif);font-size:55px;color:var(--wine2)}
+.testimonial h3{font-family:var(--serif);font-size:40px;font-weight:400}
+.testimonial p{color:var(--muted);font-size:12px;max-width:500px;margin:15px auto}
+
+/* =========================
+   GUIDE CARDS
+========================= */
+
+.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.guide-card{
+ padding:28px;border:1px solid var(--line);background:#111;transition:.4s;
+}
+.guide-card:hover{border-color:var(--wine2);transform:translateY(-3px)}
+.guide-card h3{font-family:var(--serif);font-size:30px;font-weight:400}
+.guide-card p{font-size:11px;color:var(--muted);margin:10px 0 20px}
+.guide-card button{
+ background:none;border:none;color:var(--gold);
+ text-transform:uppercase;font-size:10px;letter-spacing:2px;
+}
+
+/* =========================
+   GUIDE MODAL
+========================= */
+
+.modal{
+ position:fixed;inset:0;z-index:8000;
+ background:rgba(0,0,0,.85);backdrop-filter:blur(10px);
+ display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal.active{display:flex}
+.modal-box{
+ width:min(750px,100%);max-height:85vh;overflow:auto;
+ background:#111;border:1px solid var(--line);padding:35px;
+ animation:fade .3s;
+}
+.modal-top{display:flex;justify-content:space-between;gap:20px;align-items:center}
+.modal-top h3{font-family:var(--serif);font-size:35px;font-weight:400}
+.modal-close{background:none;border:none;color:var(--wine2);font-size:25px}
+.modal-body{font-size:12px;color:var(--muted);margin-top:25px}
+.modal-body p{margin:15px 0}
+
+/* =========================
+   MUSIC
+========================= */
+
+.music-control{
+ position:fixed;bottom:22px;right:22px;z-index:500;
+ display:flex;align-items:center;gap:10px;
+ padding:12px 16px;border:1px solid var(--line);
+ background:#121111;border-radius:40px;
+}
+.music-control button{background:none;border:none;font-size:17px}
+.music-label{font-size:9px;letter-spacing:2px;color:var(--muted)}
+.music-dot{width:7px;height:7px;border-radius:50%;background:var(--wine2)}
+.music-dot.playing{animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.3;transform:scale(.7)}}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+ border-top:1px solid var(--line);padding:70px 5%;text-align:center;
+}
+.footer-logo{font-family:var(--serif);font-size:50px}
+footer p{font-size:10px;letter-spacing:2px;color:var(--muted);margin:12px 0}
+.footer-links{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:25px}
+.footer-links a{font-size:10px;color:var(--gold)}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+ opacity:0;transform:translateY(25px);transition:opacity .8s,transform .8s;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+ .hero{grid-template-columns:1fr;padding:65px 0}
+ .hero-visual{min-height:350px}
+ .cards{grid-template-columns:1fr 1fr}
+ .guide-grid{grid-template-columns:1fr 1fr}
+ .nav-links{gap:13px}
+ .nav-links a{font-size:9px}
+}
+@media(max-width:650px){
+ .nav{padding:15px 5%}
+ .menu-btn{display:block}
+ .nav-links{
+  display:none;position:absolute;top:100%;left:0;width:100%;
+  background:#090909;border-bottom:1px solid var(--line);
+  padding:25px;flex-direction:column;align-items:flex-start;
+ }
+ .nav-links.active{display:flex}
+ .hero{min-height:auto;padding:65px 0}
+ .hero h1{font-size:65px}
+ .hero-visual{min-height:300px}
+ .hero-mark{font-size:65px}
+ .section{padding:75px 0}
+ .section-head{align-items:flex-start;flex-direction:column}
+ .section-head h2{font-size:45px}
+ .cards,.price-grid,.forms-grid,.guide-grid{grid-template-columns:1fr}
+ .card,.price-box,.form-card{padding:25px}
+ .class-card{padding:30px}
+ .class-card h3{font-size:48px}
+ .acc-btn{font-size:25px}
+ .testimonial{padding:25px}
+ main{padding:0 5%}
+ .music-label{display:none}
+
+ .film{width:55px;opacity:.3}
+ .film.left{left:1%}
+ .film.right{right:1%}
+ .monogram{width:50vw;min-width:180px;left:5%;opacity:.18}
+ .quill{width:40vw;right:4%;top:10%;opacity:.25}
+ .bottle{width:20vw;right:8%;bottom:10%;opacity:.25}
+ .fr1{left:5%;top:20%;font-size:12px;letter-spacing:4px}
+ .fr2{right:5%;top:15%;font-size:8px}
+ .fr3{right:5%;bottom:15%;font-size:8px}
+ .fr4{left:5%;bottom:8%;font-size:7px}
+ .intro-content{width:100%;padding:25px 10px}
+ .intro-title{font-size:clamp(34px,10vw,70px);letter-spacing:3px}
+ .topline{letter-spacing:3px;font-size:8px;margin-bottom:25px}
+ .intro-divider{margin:25px auto 15px}
+ .intro-divider span{width:45px}
+ .intro-sub{letter-spacing:3px;font-size:8px}
+ .enter-btn{padding:14px 22px;letter-spacing:2px;gap:15px}
+ .intro-bottom{letter-spacing:3px;font-size:7px;margin-top:35px}
+ .corner{font-size:6px;letter-spacing:2px}
+ .ct{top:15px;left:15px}
+ .cr{top:15px;right:15px}
+ .cb{bottom:15px;left:15px}
+ .cbr{bottom:15px;right:15px}
+ .modal-box{padding:25px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<div id="intro">
+ <div class="scene">
+
+  <div class="grain"></div>
+  <div class="vignette"></div>
+  <div class="ambient"></div>
+
+  <div class="film left">
+   <div class="film-text">
+    <span>ARCHIVE</span>
+    <span>FRAGMENT</span>
+    <span>NO. 01</span>
+   </div>
+  </div>
+
+  <div class="film right">
+   <div class="film-text">
+    <span>ART</span>
+    <span>OF</span>
+    <span>WORDS</span>
+   </div>
+  </div>
+
+  <div class="star s1">✦</div>
+  <div class="star s2">✧</div>
+  <div class="star s3">✶</div>
+  <div class="star s4">✦</div>
+  <div class="star s5">✧</div>
+  <div class="star s6">✶</div>
+
+  <div class="fragment fr1">E<br>L<br>E<br>G<br>A<br>N<br>C<br>E</div>
+  <div class="fragment fr2">ETHEREAL</div>
+  <div class="fragment fr3">EXQUISITE</div>
+  <div class="fragment fr4">THE ART OF EXPRESSION</div>
+  <div class="fragment fr5">✧</div>
+
+  <!-- Original ornamental monogram -->
+  <div class="monogram">
+   <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-width="1.6">
+     <path d="M150 18 C90 18 30 60 30 150 C30 240 90 282 150 282 C210 282 270 240 270 150 C270 60 210 18 150 18Z"/>
+     <path d="M150 30 C100 30 42 67 42 150 C42 233 100 270 150 270 C200 270 258 233 258 150 C258 67 200 30 150 30Z"/>
+     <path d="M62 90 C90 40 130 40 150 60 C170 40 210 40 238 90"/>
+     <path d="M62 210 C90 260 130 260 150 240 C170 260 210 260 238 210"/>
+     <path d="M70 75 C40 100 75 125 100 105 C120 90 100 65 85 90"/>
+     <path d="M230 75 C260 100 225 125 200 105 C180 90 200 65 215 90"/>
+     <path d="M70 225 C40 200 75 175 100 195 C120 210 100 235 85 210"/>
+     <path d="M230 225 C260 200 225 175 200 195 C180 210 200 235 215 210"/>
+     <path d="M150 55 C110 85 90 105 110 130 C130 155 190 145 190 175 C190 205 130 220 115 240"/>
+     <path d="M150 55 C190 85 210 105 190 130 C170 155 110 145 110 175 C110 205 170 220 185 240"/>
+     <path d="M105 50 C120 20 140 35 150 45 C160 35 180 20 195 50"/>
+     <path d="M105 250 C120 280 140 265 150 255 C160 265 180 280 195 250"/>
+     <path d="M30 150 C10 125 20 100 55 105 C30 120 45 140 55 150 C45 160 30 180 55 195 C20 200 10 175 30 150Z"/>
+     <path d="M270 150 C290 125 280 100 245 105 C270 120 255 140 245 150 C255 160 270 180 245 195 C280 200 290 175 270 150Z"/>
+    </g>
+    <text x="150" y="177" text-anchor="middle"
+     font-family="Cormorant Garamond,serif"
+     font-size="145" font-style="italic" fill="currentColor">S</text>
+   </svg>
+  </div>
+
+  <!-- Feather pen -->
+  <div class="quill">
+   <svg viewBox="0 0 320 520" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="currentColor" stroke-linecap="round">
+     <path stroke-width="2.4" d="M40 470 C60 380 90 300 115 220 C150 120 210 45 290 12 C270 100 245 180 210 245 C165 330 100 405 40 470Z"/>
+     <path stroke-width="2.2" d="M40 470 C100 350 165 220 290 12"/>
+     <path stroke-width="1.4" d="M105 320 C45 310 30 280 20 255 C60 270 80 290 105 320"/>
+     <path stroke-width="1.4" d="M125 285 C75 265 70 235 65 205 C95 220 115 250 125 285"/>
+     <path stroke-width="1.4" d="M145 250 C110 210 115 185 120 155 C140 180 150 215 145 250"/>
+     <path stroke-width="1.4" d="M170 215 C150 175 160 145 175 120 C185 155 180 190 170 215"/>
+     <path stroke-width="1.4" d="M195 175 C180 135 195 105 215 80 C215 115 205 150 195 175"/>
+     <path stroke-width="1.4" d="M220 135 C215 100 230 75 250 55 C245 90 230 115 220 135"/>
+     <path stroke-width="1.4" d="M95 350 C50 355 35 335 20 310 C60 320 80 335 95 350"/>
+     <path stroke-width="1.4" d="M75 390 C40 395 20 375 10 350 C45 360 65 375 75 390"/>
+     <path stroke-width="1.4" d="M55 430 C30 435 15 415 5 395 C30 405 45 415 55 430"/>
+     <path stroke-width="3" d="M40 470 L12 500"/>
+     <path stroke-width="1.4" d="M12 500 L22 472 L40 470"/>
+    </g>
+   </svg>
+  </div>
+
+  <!-- Ink bottle -->
+  <div class="bottle">
+   <svg viewBox="0 0 170 230" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="currentColor" fill="none">
+     <path stroke-width="2" d="M55 20 H115 V55 C140 75 150 90 150 120 V185 C150 200 140 210 125 210 H45 C30 210 20 200 20 185 V120 C20 90 30 75 55 55Z"/>
+     <path stroke-width="2" d="M50 20 H120 V48 H50Z"/>
+     <path stroke-width="1.5" d="M32 110 H138"/>
+     <path stroke-width="1.5" d="M32 125 H138"/>
+     <path stroke-width="1.5" d="M45 175 H125"/>
+    </g>
+    <path fill="currentColor" opacity=".18" d="M32 125 H138 V185 C138 195 130 200 120 200 H50 C40 200 32 195 32 185Z"/>
+   </svg>
+  </div>
+
+  <!-- Main intro -->
+  <div class="intro-content">
+   <div class="topline"><span>✦</span> AN ATELIER OF WORDS <span>✦</span></div>
+   <div class="intro-title">SENTENCERIES</div>
+   <div class="intro-divider"><span></span>❧<span></span></div>
+   <div class="intro-sub">@WWORDING · THE ART OF WORDS</div>
+   <button class="enter-btn" onclick="enterSite()">
+    <span>ENTER THE ATELIER</span><span class="enter-arrow">↗</span>
+   </button>
+   <div class="intro-bottom">EST. IN THE LANGUAGE OF ART</div>
+  </div>
+
+  <div class="corner ct">S. / 01</div>
+  <div class="corner cr">THE WORDSMITH</div>
+  <div class="corner cb">POETIC · LITERARY · BESPOKE</div>
+  <div class="corner cbr">MMXXVI</div>
+
+ </div>
+</div>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+ <nav class="nav">
+  <a href="#home" class="logo">Sentenceries<span>.</span></a>
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+  <div class="nav-links" id="navLinks">
+   <a href="#services">Services</a>
+   <a href="#pricelist">Pricelist</a>
+   <a href="#regulations">Regulations</a>
+   <a href="#order">Order</a>
+   <a href="#class">Class</a>
+   <a href="#guides">Guides</a>
+  </div>
+ </nav>
+</header>
+
+<main>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+ <div class="reveal">
+  <div class="eyebrow">A small atelier of literary craft</div>
+  <h1>Words,<br>made <i>art.</i></h1>
+  <p class="hero-text">
+   An atelier devoted to the art of wording, poetic expressions,
+   bespoke compositions, and the delicate craft of language.
+   Every sentence, a little universe of its own.
+  </p>
+  <div class="hero-buttons">
+   <a href="#pricelist" class="btn btn-primary">Explore the collection</a>
+   <a href="#order" class="btn">Commission a piece ↗</a>
+  </div>
+ </div>
+
+ <div class="hero-visual reveal">
+  <div class="hero-frame">
+   <span class="hero-symbol">✳</span>
+   <span class="hero-mark">S.</span>
+   <span class="hero-small">ink.</span>
+   <span class="hero-caption">THE ART OF WORDS · MMXXVI</span>
+  </div>
+ </div>
+</section>
+
+<div class="ticker">
+ <div class="ticker-track">
+  ✦ SENTENCERIES · THE ART OF WORDS · POETIC COMPOSITIONS · WORDS THAT LINGER · ✦ SENTENCERIES · THE ART OF WORDS · POETIC COMPOSITIONS · WORDS THAT LINGER · ✦ SENTENCERIES · THE ART OF WORDS · POETIC COMPOSITIONS · WORDS THAT LINGER ·
+ </div>
+</div>
+
+<!-- =========================
+     SERVICES
+========================= -->
+
+<section class="section" id="services">
+ <div class="section-head reveal">
+  <div><div class="eyebrow">01 / The Atelier</div><h2>Our <i>services.</i></h2></div>
+  <p>Crafted with intention</p>
+ </div>
+
+ <div class="cards">
+  <div class="card reveal">
+   <div class="card-no">I.</div><h3>Custom Wording</h3>
+   <p>Tailored words composed according to your theme, keywords, preferred diction, language and imagination.</p>
+   <a href="#pricelist" class="card-link">Discover pricing ↗</a>
+  </div>
+  <div class="card reveal">
+   <div class="card-no">II.</div><h3>Poetic Packages</h3>
+   <p>Collections of poetic items designed to complement your account, identity, and chosen aesthetic.</p>
+   <a href="#pricelist" class="card-link">Discover pricing ↗</a>
+  </div>
+  <div class="card reveal">
+   <div class="card-no">III.</div><h3>Biography</h3>
+   <p>Descriptions, biographies, locations, titles and other embellishments for your digital presence.</p>
+   <a href="#pricelist" class="card-link">Discover pricing ↗</a>
+  </div>
+ </div>
+</section>
+
+<!-- =========================
+     PRICELIST
+========================= -->
+
+<section class="section" id="pricelist">
+ <div class="section-head reveal">
+  <div><div class="eyebrow">02 / The Menu</div><h2>Pricelist &<br><i>commissions.</i></h2></div>
+  <p>Indonesian Rupiah</p>
+ </div>
+
+ <div class="price-grid">
+  <div class="price-box reveal">
+   <div class="price-sub">Single Commissions</div>
+   <h3>Wording</h3>
+   <div class="price-item"><span>Short Wording</span><span>Rp 5.000–7.000</span></div>
+   <div class="price-item"><span>Medium Wording</span><span>Rp 8.000–12.000</span></div>
+   <div class="price-item"><span>Long Wording</span><span>Rp 13.000–15.000</span></div>
+   <div class="price-item"><span>Short Package</span><span>Rp 20.000–25.000</span></div>
+   <div class="price-item"><span>Medium Package</span><span>Rp 30.000–45.000</span></div>
+   <div class="price-item"><span>Long Package</span><span>Rp 50.000–60.000</span></div>
+   <p class="price-note">Packages contain four different items.</p>
+  </div>
+
+  <div class="price-box reveal">
+   <div class="price-sub">Supplementary Commissions</div>
+   <h3>Biography</h3>
+   <div class="price-item"><span>Biography</span><span>Rp 3.000–5.000</span></div>
+   <div class="price-item"><span>Location</span><span>Rp 3.000</span></div>
+   <div class="price-item"><span>Start Page</span><span>Rp 4.000</span></div>
+   <div class="price-item"><span>Description</span><span>Rp 5.000–6.000</span></div>
+   <div class="price-item"><span>Finder Name</span><span>Rp 2.000–5.000</span></div>
+   <div class="price-item"><span>Channel Title</span><span>Rp 2.000–3.000</span></div>
+  </div>
+ </div>
+
+ <div class="price-box reveal" style="margin-top:18px">
+  <div class="price-sub">Ancillary Flourishes</div>
+  <h3>Additional Requests</h3>
+  <div class="price-item"><span>Symbol</span><span>Rp 500–3.000</span></div>
+  <div class="price-item"><span>Emoji</span><span>Rp 500–3.000</span></div>
+  <div class="price-item"><span>Kaomoji</span><span>Rp 500–3.000</span></div>
+  <div class="price-item"><span>Fancy Font</span><span>Rp 500–3.000</span></div>
+  <div class="price-item"><span>Mix Language</span><span>Rp 500–4.000</span></div>
+  <div class="price-item"><span>Old English</span><span>Rp 500–4.000</span></div>
+  <div class="price-item"><span>Shakespeare</span><span>Rp 500–4.000</span></div>
+  <div class="price-item"><span>Thesaurus</span><span>Rp 2.000–10.000</span></div>
+  <div class="price-item"><span>Diksi</span><span>Rp 3.000–8.000</span></div>
+  <div class="price-item"><span>Rush Order</span><span>Rp 0–8.000 / wording</span></div>
+  <div class="price-item"><span>Result Not Uploaded</span><span>Rp 10.000 / wording</span></div>
+ </div>
+</section>
+
+<!-- =========================
+     REGULATIONS
+========================= -->
+
+<section class="section" id="regulations">
+ <div class="section-head reveal">
+  <div><div class="eyebrow">03 / Terms of Atelier</div><h2>Shop <i>regulations.</i></h2></div>
+  <p>Read before ordering</p>
+ </div>
+
+ <div class="accordion">
+
+  <div class="accordion-item">
+   <button class="acc-btn" onclick="toggleAcc(this)">
+    <span><span class="reg-index">I.</span> Must-to-do</span><span class="acc-icon">＋</span>
+   </button>
+   <div class="acc-content">
+    Required to subscribe to <a style="color:var(--gold)" href="https://t.me/wwording" target="_blank">t.me/wwording</a> before making a purchase so you won't miss out on the latest and upcoming news and you can continue to be updated regarding the latest information.
+   </div>
+  </div>
+
+  <div class="accordion-item">
+   <button class="acc-btn" onclick="toggleAcc(this)">
+    <span><span class="reg-index">II.</span> Processing Time</span><span class="acc-icon">＋</span>
+   </button>
+   <div class="acc-content">
+    Maximum processing time is 1–7 days for custom wording and 1–14 days for packages depending on the length and complexity of wording in order. The fastest inrush is 30 minutes, or we make sure to send the results before your deadline.
+   </div>
+  </div>
+
+  <div class="accordion-item">
+   <button class="acc-btn" onclick="toggleAcc(this)">
+    <span><span class="reg-index">III.</span> Form Order</span><span class="acc-icon">＋</span>
+   </button>
+   <div class="acc-content">
+    Make sure you have filled in the format properly because errors in filling in the order form that cause errors in your order are not the responsibility of the admin. Once you send the order form, it cannot be canceled.
+   </div>
+  </div>
+
+  <div class="accordion-item">
+   <button class="acc-btn" onclick="toggleAcc(this)">
+    <span><span class="reg-index">IV.</span> Improvement</span><span class="acc-icon">＋</span>
+   </button>
+   <div class="acc-content">
+    Only minor revisions are accepted within 24 hours after the preview was sent. No revisions are accepted after the final results are given.
+    <p><strong>Minor:</strong> Add text (if still possible), delete text, replace text, symbol, emoji.</p>
+    <p><strong>Major:</strong> Replace theme, add request.</p>
+   </div>
+  </div>
+
+  <div class="accordion-item">
+   <button class="acc-btn" onclick="toggleAcc(this)">
+    <span><span class="reg-index">V.</span> Hasten</span><span class="acc-icon">＋</span>
+   </button>
+   <div class="acc-content">
+    If you want the job done quickly or want to be preceded by a queue, there will be an additional fee ranging from Rp 0–8.000 per wording, free for bio, which is set according to the length of the wording you ordered.
+   </div>
+  </div>
+
+  <div class="accordion-item">
+   <button class="acc-btn" onclick="toggleAcc(this)">
+    <span><span class="reg-index">VI.</span> Disbursement</span><span class="acc-icon">＋</span>
+   </button>
+   <div class="acc-content">
+    Payment is made in advance to avoid hit and run. Your order will not be executed before payment. Payment can be made in any e-wallet and QRIS (no rate). Make sure to send clear proof of payment without edits to avoid counterfeiting.
+   </div>
+  </div>
+
+  <div class="accordion-item">
+   <button class="acc-btn" onclick="toggleAcc(this)">
+    <span><span class="reg-index">VII.</span> Master Police</span><span class="acc-icon">＋</span>
+   </button>
+   <div class="acc-content">
+    Forbidden to resell our wording, also prohibited from stealing and reposting our wording results and everything in my channel or other things that can harm us are strictly prohibited. If it occurs, it can be subject to a fine of Rp 350,000.00 which must be paid as a fine for committing a violation.
+   </div>
+  </div>
+
+ </div>
+
+ <div class="card" style="margin-top:30px">
+  <div class="card-no">Note</div>
+  <p>I will not answer questions about "When will my wording be done?" or "How is the latest progress of my wording?" To shorten the time and work on things like this, you should not ask again because it is already stated in the regulations. Please be wise and understand the regulations stated. Thank you.</p>
+ </div>
+</section>
+
+<!-- =========================
+     ORDER FORMS
+========================= -->
+
+<section class="section" id="order">
+ <div class="section-head reveal">
+  <div><div class="eyebrow">04 / Commissioning</div><h2>Order <i>forms.</i></h2></div>
+  <p>Copy · Fill · Send</p>
+ </div>
+
+ <p class="hero-text" style="margin-bottom:30px">
+ Greetings, there! Nice to see u, in advance please fill the form below!
+ </p>
+
+ <div class="forms-grid">
+  <div class="form-card reveal">
+   <h3>Custom Wording</h3>
+   <p class="desc">ⓘ FORM ORDER WORDING CUSTOM</p>
+   <div class="form-text" id="formWording">ⓘ : FORM ORDER WORDING CUSTOM﹐🀣 . . .
+╭─────────── ·﻿ ﻿ ﻿· ﻿ ·﻿ ﻿ ﻿· ﻿✦
+││• Name & username:
+││• Type account [isi jika diperlukan]:
+││• Wording type:
+││• Language:
+││• Length:
+││• Theme & keyword:
+││• Typing style:
+││• POV : 1/2/3
+││• Additional request:
+││• Notes :
+││• Deadline:
+││• Payment:
+╰─────────── ·﻿ ﻿ ﻿· ﻿ ·﻿ ﻿ ﻿· ﻿᭧</div>
+   <button class="copy-btn" onclick="copyText('formWording',this)">Copy Form</button>
+  </div>
+
+  <div class="form-card reveal">
+   <h3>Biography Custom</h3>
+   <p class="desc">ⓘ FORM ORDER BIOGRAPHY CUSTOM</p>
+   <div class="form-text" id="formBio">ⓘ : FORM ORDER BIOGRAPHY CUSTOM﹐🀣 . . .
+╭─────────── ·﻿ ﻿ ﻿· ﻿ ·﻿ ﻿ ﻿· ﻿✦
+││• Name & username:
+││• Type account: [ga perlu diisi kalau ga mau dicantumin di bio]
+││• Pronouns: [ga perlu diisi kalau ga mau dicantumin di bio]
+││• Wording type: [sebut wording bio buat platform apa]
+││• Language:
+││• Length: isi dalam character atau berikan petunjuk contoh : telegram premium
+││• Theme & keyword:
+││• Typing style:
+││• POV : 1/2/3
+││• Additional request:
+││• Notes : if u have @ to put on bio, u can mention in here
+││• Deadline:
+││• Payment:
+╰─────────── ·﻿ ﻿ ﻿· ﻿ ·﻿ ﻿ ﻿· ᭧</div>
+   <button class="copy-btn" onclick="copyText('formBio',this)">Copy Form</button>
+  </div>
+ </div>
+
+ <div class="card" style="margin-top:20px">
+  <div class="card-no">Note</div>
+  <p>If u inrush, u can order without fill in the form. If u don't understand how to fill in the form, u can see an example in the guide below. If u still don't understand, don't hesitate to ask me.</p>
+  <p style="margin-top:15px">Send to <a href="https://t.me/wajah" target="_blank" style="color:var(--gold)">@wajah</a> or <a href="https://t.me/SentenceriesBot" target="_blank" style="color:var(--gold)">@SentenceriesBot</a> on Telegram.</p>
+ </div>
+</section>
+
+<!-- =========================
+     READY TO USE
+========================= -->
+
+<section class="section" id="ready">
+ <div class="section-head reveal">
+  <div><div class="eyebrow">05 / The Archive</div><h2>Ready-to-use<br><i>wording.</i></h2></div>
+ </div>
+
+ <div class="feature-block reveal">
+  <div class="eyebrow">Curated & Ready</div>
+  <h3>Words awaiting a new home.</h3>
+  <p>Explore our ready-to-use wording collection. Find a composition that speaks to your chosen aesthetic and make it yours.</p>
+  <a class="btn btn-primary" href="https://t.me/wwording/687" target="_blank">Explore the collection ↗</a>
+ </div>
+</section>
+
+<!-- =========================
+     CLASS
+========================= -->
+
+<section class="section" id="class">
+ <div class="section-head reveal">
+  <div><div class="eyebrow">06 / The Classroom</div><h2>Wording <i>class.</i></h2></div>
+ </div>
+
+ <div class="class-card reveal">
+  <div class="eyebrow">WORDING–CLASS! BY @WWORDING</div>
+  <h3>Within<br>Unfeigned Elation.</h3>
+  <p>
+   The class is made for souls who want to learn to write more deeply.
+   Experience the benefits of our materials by taking our class.
+  </p>
+  <div class="class-price">Rp 20.000</div>
+  <p>Nominal membership fee for lifetime access!</p>
+  <a class="btn btn-primary" href="https://t.me/wwording/1059?comment=5389" target="_blank">Join the class ↗</a>
+  <p style="margin-top:30px">
+   Hi Caith, I'm interested to join on your wording class and I want to make a payment with Qris.
+  </p>
+ </div>
+</section>
+
+<!-- =========================
+     TESTIMONIAL
+========================= -->
+
+<section class="section" id="testimonials">
+ <div class="section-head reveal">
+  <div><div class="eyebrow">07 / Words of Appreciation</div><h2>Testimonials.</h2></div>
+ </div>
+
+ <div class="testimonial reveal">
+  <div class="quote">“</div>
+  <h3>From those who<br>have experienced it.</h3>
+  <p>A collection of thoughts, appreciation, and experiences shared by our customers.</p>
+  <a href="https://t.me/wwording/1059lalu" target="_blank" class="btn">Read testimonials ↗</a>
+ </div>
+</section>
+
+<!-- =========================
+     GUIDES
+========================= -->
+
+<section class="section" id="guides">
+ <div class="section-head reveal">
+  <div><div class="eyebrow">08 / Guide Light</div><h2>Little <i>guides.</i></h2></div>
+  <p>Read before commissioning</p>
+ </div>
+
+ <div class="guide-grid">
+
+  <div class="guide-card reveal">
+   <h3>Length of Wording</h3>
+   <p>Learn the distinction between short, medium, and long wording before choosing your commission.</p>
+   <button onclick="openGuide('length')">Read guide ↗</button>
+  </div>
+
+  <div class="guide-card reveal">
+   <h3>How to Fill the Form</h3>
+   <p>A guide to the required details and how to prepare your order form.</p>
+   <button onclick="openGuide('form')">Read guide ↗</button>
+  </div>
+
+  <div class="guide-card reveal">
+   <h3>Additional Requests</h3>
+   <p>Discover what you may request as supplementary embellishments.</p>
+   <button onclick="openGuide('additional')">Read guide ↗</button>
+  </div>
+
+  <div class="guide-card reveal">
+   <h3>Form Example</h3>
+   <p>See an example of a properly completed order form.</p>
+   <button onclick="openGuide('example')">Read guide ↗</button>
+  </div>
+
+  <div class="guide-card reveal">
+   <h3>Custom Wording Form</h3>
+   <p>Review the custom wording form and the details needed for a commission.</p>
+   <button onclick="openGuide('wording')">Read guide ↗</button>
+  </div>
+
+  <div class="guide-card reveal">
+   <h3>Biography Form</h3>
+   <p>Prepare the details for your biography commission.</p>
+   <button onclick="openGuide('bio')">Read guide ↗</button>
+  </div>
+
+ </div>
+</section>
+
+</main>
+
+<!-- =========================
+     GUIDE MODAL
+========================= -->
+
+<div class="modal" id="guideModal" onclick="closeGuideOutside(event)">
+ <div class="modal-box">
+  <div class="modal-top">
+   <h3 id="modalTitle">Guide Light</h3>
+   <button class="modal-close" onclick="closeGuide()">×</button>
+  </div>
+  <div class="modal-body" id="modalBody"></div>
+ </div>
+</div>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+ <div class="footer-logo">Sentenceries<span style="color:var(--wine2)">.</span></div>
+ <p>THE ART OF WORDS · @WWORDING</p>
+ <p>A small atelier for words that linger.</p>
+ <div class="footer-links">
+  <a href="https://t.me/wwording" target="_blank">Telegram Channel</a>
+  <a href="https://t.me/wajah" target="_blank">Admin</a>
+  <a href="https://t.me/SentenceriesBot" target="_blank">Order Bot</a>
+ </div>
+ <p style="margin-top:35px">© 2026 SENTENCERIES. ALL RIGHTS RESERVED.</p>
+</footer>
+
+<!-- =========================
+     PIANO
+========================= -->
+
+<div class="music-control">
+ <div class="music-dot" id="musicDot"></div>
+ <span class="music-label">PIANO AMBIENCE</span>
+ <button id="musicBtn" onclick="toggleMusic()" aria-label="Toggle piano">♫</button>
+</div>
+
+<script>
+
+/* INTRO */
+
+function enterSite(){
+ document.getElementById('intro').classList.add('hide');
+ try{sessionStorage.setItem('entered','1')}catch(e){}
+}
+try{
+ if(sessionStorage.getItem('entered')){
+  document.getElementById('intro').classList.add('hide');
+ }
+}catch(e){}
+
+/* MENU */
+
+function toggleMenu(){
+ document.getElementById('navLinks').classList.toggle('active');
+}
+document.querySelectorAll('.nav-links a').forEach(a=>{
+ a.addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.remove('active');
+ });
+});
+
+/* ACCORDION */
+
+function toggleAcc(button){
+ const content=button.nextElementSibling;
+ const icon=button.querySelector('.acc-icon');
+ const open=content.classList.contains('open');
+ content.classList.toggle('open');
+ icon.textContent=open?'＋':'－';
+}
+
+/* COPY FORMS */
+
+async function copyText(id,button){
+ const text=document.getElementById(id).innerText;
+ try{
+  await navigator.clipboard.writeText(text);
+ }catch(e){
+  const area=document.createElement('textarea');
+  area.value=text;
+  document.body.appendChild(area);
+  area.select();
+  document.execCommand('copy');
+  area.remove();
+ }
+ button.textContent='Copied ✦';
+ button.classList.add('copied');
+ setTimeout(()=>{
+  button.textContent='Copy Form';
+  button.classList.remove('copied');
+ },1800);
+}
+
+/* SCROLL REVEAL */
+
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting){
+   entry.target.classList.add('visible');
+   observer.unobserve(entry.target);
+  }
+ });
+},{threshold:.12});
+
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+/* GUIDE MODAL */
+
+const guides={
+ length:{
+  title:'Length of Wording',
+  body:`<p>Choose the length of wording according to the type of commission you need.</p>
+  <p><strong>Short wording:</strong> A concise composition for a smaller space or a brief expression.</p>
+  <p><strong>Medium wording:</strong> A composition with more room for descriptive detail, imagery and expression.</p>
+  <p><strong>Long wording:</strong> A more extensive composition that allows for a developed atmosphere, narrative and literary structure.</p>
+  <p>For the exact length and requirements, consult the original guide provided by @sentenceries.</p>
+  <p><a style="color:var(--gold)" href="https://t.me/sentenceries/16" target="_blank">Original guide reference ↗</a></p>`
+ },
+ form:{
+  title:'How to Fill the Form',
+  body:`<p>Fill in the details of your order clearly so the composition can be tailored to your preferences.</p>
+  <p><strong>Name & username:</strong> The name and account username you want included.</p>
+  <p><strong>Wording type:</strong> Specify the type of wording you need.</p>
+  <p><strong>Language:</strong> Specify the language or combination of languages.</p>
+  <p><strong>Length:</strong> Mention your preferred length.</p>
+  <p><strong>Theme & keyword:</strong> Describe the concept, mood, subject and words you want incorporated.</p>
+  <p><strong>Typing style:</strong> Specify your preferred style or diction.</p>
+  <p><strong>POV:</strong> Choose first, second or third person.</p>
+  <p><strong>Additional request, notes and deadline:</strong> Include other relevant details.</p>
+  <p><a style="color:var(--gold)" href="https://t.me/sentenceries/18" target="_blank">Original guide reference ↗</a></p>`
+ },
+ additional:{
+  title:'Additional Requests',
+  body:`<p>Additional requests are optional embellishments that may be added to your commission.</p>
+  <p>Examples include symbols, emoji, kaomoji, fancy fonts, mixed language, Old English, Shakespearean style, thesaurus, diction and rush order.</p>
+  <p>Each request may affect the price according to the pricelist.</p>
+  <p><a style="color:var(--gold)" href="https://t.me/sentenceries/38" target="_blank">Original guide reference ↗</a></p>`
+ },
+ example:{
+  title:'Example of Filling the Form',
+  body:`<p>Use the example guide to see how the order form is completed.</p>
+  <p>Providing specific themes, keywords, language, POV, typing style and additional requests can help communicate your preferences.</p>
+  <p><a style="color:var(--gold)" href="https://t.me/sentenceries/42" target="_blank">Original guide reference ↗</a></p>`
+ },
+ wording:{
+  title:'Custom Wording Form',
+  body:`<p>Use the custom wording form to provide details about the composition you want.</p>
+  <p>Complete the fields in the Custom Wording section on this website before sending it to the admin.</p>
+  <p><a style="color:var(--gold)" href="https://t.me/sentenceries/45" target="_blank">Original guide reference ↗</a></p>`
+ },
+ bio:{
+  title:'Biography Form',
+  body:`<p>Use the Biography Custom form when commissioning a bio or related profile wording.</p>
+  <p>Specify the platform, language, character length, theme, typing style and any usernames or additional details.</p>
+  <p><a style="color:var(--gold)" href="https://t.me/sentenceries/45" target="_blank">Original guide reference ↗</a></p>`
+ }
+};
+
+function openGuide(id){
+ const g=guides[id];
+ document.getElementById('modalTitle').textContent=g.title;
+ document.getElementById('modalBody').innerHTML=g.body;
+ document.getElementById('guideModal').classList.add('active');
+}
+function closeGuide(){
+ document.getElementById('guideModal').classList.remove('active');
+}
+function closeGuideOutside(e){
+ if(e.target.id==='guideModal')closeGuide();
+}
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape')closeGuide();
+});
+
+/* ORIGINAL SYNTHETIC PIANO */
+
+let audioCtx=null;
+let musicOn=false;
+let musicTimer=null;
+let noteIndex=0;
+let master=null;
+
+const melody=[
+ [261.63,329.63,392.00,523.25],
+ [293.66,349.23,440.00,587.33],
+ [246.94,329.63,392.00,493.88],
+ [220.00,293.66,349.23,440.00],
+ [261.63,349.23,415.30,523.25],
+ [196.00,293.66,392.00,493.88],
+ [233.08,311.13,392.00,466.16],
+ [261.63,329.63,392.00,523.25]
+];
+
+function playNote(freq,time,duration){
+ const osc=audioCtx.createOscillator();
+ const gain=audioCtx.createGain();
+ const filter=audioCtx.createBiquadFilter();
+
+ osc.type='triangle';
+ osc.frequency.value=freq;
+ filter.type='lowpass';
+ filter.frequency.value=2400;
+
+ gain.gain.setValueAtTime(0,audioCtx.currentTime+time);
+ gain.gain.linearRampToValueAtTime(.08,audioCtx.currentTime+time+.03);
+ gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+time+duration);
+
+ osc.connect(filter);
+ filter.connect(gain);
+ gain.connect(master);
+
+ osc.start(audioCtx.currentTime+time);
+ osc.stop(audioCtx.currentTime+time+duration+.1);
+}
+
+function playChord(){
+ if(!musicOn)return;
+ const chord=melody[noteIndex%melody.length];
+ chord.forEach((f,i)=>playNote(f,i*.18,2.7));
+ playNote(chord[0]/2,.5,3.5);
+ noteIndex++;
+}
+
+async function toggleMusic(){
+ if(!audioCtx){
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  master=audioCtx.createGain();
+  master.gain.value=.35;
+  master.connect(audioCtx.destination);
+ }
+ if(audioCtx.state==='suspended')await audioCtx.resume();
+
+ musicOn=!musicOn;
+ const btn=document.getElementById('musicBtn');
+ const dot=document.getElementById('musicDot');
+
+ if(musicOn){
+  btn.textContent='Ⅱ';
+  dot.classList.add('playing');
+  playChord();
+  musicTimer=setInterval(playChord,3500);
+ }else{
+  btn.textContent='♫';
+  dot.classList.remove('playing');
+  clearInterval(musicTimer);
+ }
+}
+
+</script>
+</body>
+</html>
